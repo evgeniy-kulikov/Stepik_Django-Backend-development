@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'products.apps.ProductsConfig',
     'django_humanize',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
