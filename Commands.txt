@@ -1,0 +1,74 @@
+Проверить версию Python
+python -V
+python --version
+
+Проверить наличие pip
+pip --help
+
+Установка django
+pip install django
+
+Запуск django
+python -m django
+
+Создание проекта
+python -m django startproject skillbox_site
+
+Переходим в папку с проектом
+cd skillbox_site
+
+Список файлов в директории
+ls
+
+Перейти в родительскую папку (на уровень выше)
+cd ..
+
+Полный путь текущего расположения
+pwd
+
+Запуск сервера
+python manage.py runserver
+
+выход
+Ctrl + C
+
+Зафиксировать зависимости
+cd skillbox_site
+pip freeze > requirements.txt
+
+Запмсать миграции
+python manage.py makemigrations
+./manage.py makemigrations
+
+Показать все миграции
+python manage.py showmigrations
+
+Установить все миграции
+python manage.py migrate
+./manage.py migrate
+
+Установить отдельно миграцию для приложения
+python manage.py migrate <имя приложения>
+python manage.py migrate shopapp
+
+Вернуться нв прежнюю миграцию отдельно для приложения
+python manage.py migrate <имя приложения> <порядковое имя миграционного файла>
+python manage.py migrate shopapp 0006
+
+создать суперпользователя – администратора сайта
+python manage.py createsuperuser
+admin
+1234
+
+Создание приложения
+python manage.py startapp shopapp
+
+
+
+
+
+cd skillbox_site
+python manage.py runserver
+python manage.py makemigrations
+python manage.py migrate <имя приложения>
+python manage.py migrate shopapp

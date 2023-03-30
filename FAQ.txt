@@ -43,3 +43,5 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 на следущее:
 <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
+
+./manage.py makemigrations
