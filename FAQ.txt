@@ -1,0 +1,45 @@
+#  Запускаем терминал
+
+
+#  Переходим в диск d:
+d:
+
+#  Переходим впапку с будущим проектом
+cd __PythonProject\Stepik_Django_Backend development
+
+#  Создаем виртуальное окружение
+python -m venv venv
+ 
+#  Активируем виртуальное окружение
+venv\Scripts\activate
+
+# Устанавливаем Django
+pip install Django==3.2.18
+
+#  Желательно обновить pip
+python.exe -m pip install --upgrade pip
+
+#  Создаем проект
+django-admin startproject store
+
+# Создание приложения
+python manage.py startapp products
+
+# запуск сервера
+python manage.py runserver
+# запуск сервера (аналогичный результат)
+./manage.py runserver
+
+# Для загрузки статики делаем:
+1) в файле store/settings.py
+# указываем путь к статике проекта. Сама папка static находится в корне проекта
+STATICFILES_DIRS = [BASE_DIR / 'static']
+2) в файле products/templates/products/index.html
+# а так же в других шаблонах, в первой строке файла делаем загрузку статики
+{% load static %}
+3) Переписываем в шаблонах везде, где это необходимо:
+наприер меняем:
+<!--    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">  -->
+на следущее:
+<link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
