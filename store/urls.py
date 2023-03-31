@@ -14,12 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+# для возможности отображения медиафайлов
+from django.conf.urls.static import static
+from django.conf import settings
+# from store import settings # Так тоже работает, но строчка выше будет лучше, т.к. загрузятся все настройки проекта
 
 from products.views import index, products
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='index'),
-    path('products/', products, name='products')
+    # path('', index, name='index'),
+    # path('products/', products, name='products'),
+    path("", include("products.urls")),
 ]
+
+# для возможности отображения медиафайлов в режиме DEBUG
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
