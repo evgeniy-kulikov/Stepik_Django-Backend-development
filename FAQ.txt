@@ -49,7 +49,11 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 
 # выгрузка данных из базы (файлы с одинаковыми именами ПЕРЕЗАПИШУТЬСЯ !!!)
-python -Xutf8 manage.py dumpdata --format=json --indent=4 auth.User > products/fixtures/user.json
+# Первоначальный вариант суперпользователя (до урока 4.6)
+python -Xutf8 manage.py dumpdata --format=json --indent=4 auth.User > products/fixtures/user_first.json
+
+# Суперпользователь после создания приложения users (урок 4.6)
+python -Xutf8 manage.py dumpdata --format=json --indent=4 users.User > products/fixtures/user.json
 python -Xutf8 manage.py dumpdata --format=json --indent=4 products.ProductCategory > products/fixtures/categories.json
 python -Xutf8 manage.py dumpdata --format=json --indent=4 products.Product > products/fixtures/goods.json
 
@@ -63,5 +67,3 @@ python manage.py loaddata goods.json
 # Суперпользователь
 admin
 1234
-
-

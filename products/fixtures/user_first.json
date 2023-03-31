@@ -1,10 +1,10 @@
 [
 {
-    "model": "users.user",
+    "model": "auth.user",
     "pk": 1,
     "fields": {
-        "password": "pbkdf2_sha256$260000$1bTZxKRQJTepXlJQ7y4U9I$3fr6+iXAY+9uRcHFNdw12OLMsymy1SGNQL4HtAyRnt8=",
-        "last_login": null,
+        "password": "pbkdf2_sha256$260000$yVpsQOB3xRKeLD3YtSAH85$k+QsY4Wd2SIA9/LP62Hx1V6eCRMBuua0zTchRU2JUL8=",
+        "last_login": "2023-03-30T18:11:07.900Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -12,8 +12,7 @@
         "email": "",
         "is_staff": true,
         "is_active": true,
-        "date_joined": "2023-03-31T14:34:45.725Z",
-        "image": "",
+        "date_joined": "2023-03-30T18:11:02.591Z",
         "groups": [],
         "user_permissions": []
     }
