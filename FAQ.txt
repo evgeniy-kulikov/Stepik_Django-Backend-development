@@ -49,9 +49,9 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 
 # выгрузка данных из базы (файлы с одинаковыми именами ПЕРЕЗАПИШУТЬСЯ !!!)
-python manage.py dumpdata --format=json --indent=4 auth.User > products/fixtures/user.json
-python manage.py dumpdata --format=json --indent=4 products.ProductCategory > products/fixtures/categories.json
-python manage.py dumpdata --format=json --indent=4 products.Product > products/fixtures/goods.json
+python -Xutf8 manage.py dumpdata --format=json --indent=4 auth.User > products/fixtures/user.json
+python -Xutf8 manage.py dumpdata --format=json --indent=4 products.ProductCategory > products/fixtures/categories.json
+python -Xutf8 manage.py dumpdata --format=json --indent=4 products.Product > products/fixtures/goods.json
 
 # загрузить данные из файла *.json в  базу данных (существующие данные в базе при этом перезапишутся)
 # Загружать в последовательности предложенного списка !!!

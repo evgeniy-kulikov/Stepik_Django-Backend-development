@@ -25,9 +25,9 @@ from products.views import index, products
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', index, name='index'),
-    # path('products/', products, name='products'),
-    path("", include("products.urls")),
+    path('', index, name='index'),
+
+    path("products/", include("products.urls", namespace='products')),
 ]
 
 # для возможности отображения медиафайлов в режиме DEBUG
