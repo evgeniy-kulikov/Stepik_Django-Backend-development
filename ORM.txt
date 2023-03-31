@@ -1,0 +1,59 @@
+*** ORM ***
+
+чтобы войти в консоль фреймворка:
+python manage.py shell
+
+
+Для более удобной работы с консолью ORM дополнительно установить пакеты:
+pip install ipython
+pip install django-extensions
+
+далее в settings.py зарегистрировать приложение django-extensions
+INSTALLED_APPS = [
+    ...
+    'django_extensions',
+    ...
+	]
+
+После этого набираем в терминале:
+python manage.py shell_plus --print-sql
+./manage.py shell_plus --print-sql
+
+
+Выход
+exit()
+____________________________________________________________________________
+Django Бэкенд разработка (Stepik)
+____________________________________________________________________________
+# Это для консоли (однако не работает...)
+from products.models import ProductCategory
+
+python manage.py shell_plus --print-sql
+./manage.py shell_plus --print-sql
+Работаем с терминалом
+записываем объект (экземпляр класса)
+category = ProductCategory(name="Одежда", description="Верхняя одежда")
+сохраняем этот объект в БД
+category.save()
+
+Получаем запись из БД
+category = ProductCategory.objects.get(pk=1)
+
+записываем и сохраняем этот объект в БД
+ProductCategory.objects.create(name="Обувь")
+
+поллучаем все записи
+ProductCategory.objects.all()
+
+category = ProductCategory.objects.all()
+<QuerySet [<ProductCategory: Одежда>, <ProductCategory: Обувь>]>
+
+получаем первую запись
+category = ProductCategory.objects.first()
+<ProductCategory: Одежда>
+
+получаем запись по условию фильтра
+category = ProductCategory.objects.filter(description=None)
+<QuerySet [<ProductCategory: Обувь>]>
+
+

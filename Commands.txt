@@ -71,4 +71,4 @@ cd skillbox_site
 python manage.py runserver
 python manage.py makemigrations
 python manage.py migrate <имя приложения>
-python manage.py migrate shopapp
+python manage.py migrate

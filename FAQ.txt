@@ -45,3 +45,33 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 
 ./manage.py makemigrations
+
+
+
+
+# Внимание!
+# Фикстуры по адресу applicantapp/fixtures (007_applicants.json_back, data.json_back) не сочетаются с фикстурой 001_customuser.json
+# Вышеуказанные фикстуры не использовать
+
+
+
+
+# выгрузка данных из базы (файлы с одинаковыми именами ПЕРЕЗАПИШУТЬСЯ !!!)
+python manage.py dumpdata --format=json --indent=4 products.ProductCategory > products/fixtures/categories.json
+python manage.py dumpdata --format=json --indent=4 products.Product > products/fixtures/goods_1.json
+
+
+# загрузить данные из файла *.json в  базу данных (существующие данные в базе при этом перезапишутся)
+# Загружать в последовательности предложенного списка !!!
+# Команды для загрузки через консоль:
+python manage.py loaddata categories.json
+python manage.py loaddata goods.json
+
+
+
+
+
+# Суперпользователь
+admin
+1234
+
