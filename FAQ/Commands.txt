@@ -12,7 +12,7 @@ pip install django
 python -m django
 
 Создание проекта
-python -m django startproject skillbox_site
+python -m django startproject <project_name>
 
 Переходим в папку с проектом
 cd skillbox_site
@@ -64,10 +64,11 @@ python manage.py startapp shopapp
 
 
 
-
-
-cd skillbox_site
 python manage.py runserver
 python manage.py makemigrations
 python manage.py migrate <имя приложения>
 python manage.py migrate
+
+
+python manage.py shell_plus --print-sql
+./manage.py shell_plus --print-sql

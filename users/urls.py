@@ -1,5 +1,4 @@
 from django.urls import path
-from products.views import index, products
 from users.views import login, registration
 
 app_name = 'users'
