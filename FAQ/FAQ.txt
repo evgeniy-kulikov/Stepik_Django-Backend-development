@@ -67,3 +67,11 @@ python manage.py loaddata goods.json
 # Суперпользователь
 admin
 1234
+
+
+# Пользователь
+Ringo
+Starr
+ringostarr
+ringo@starr.com
+Ringo1234#

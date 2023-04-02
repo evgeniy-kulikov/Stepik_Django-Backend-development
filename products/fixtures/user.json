@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$260000$1bTZxKRQJTepXlJQ7y4U9I$3fr6+iXAY+9uRcHFNdw12OLMsymy1SGNQL4HtAyRnt8=",
-        "last_login": null,
+        "last_login": "2023-04-02T15:16:18.642Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -13,6 +13,25 @@
         "is_staff": true,
         "is_active": true,
         "date_joined": "2023-03-31T14:34:45.725Z",
+        "image": "",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$wjmFQ3FYRxNxiLFNmfyWCc$Wni/1MfWmmaIudQ68c1c4W40Cbt9r6b89a5xaB78qr0=",
+        "last_login": "2023-04-02T16:59:48.093Z",
+        "is_superuser": false,
+        "username": "ringostarr",
+        "first_name": "Ringo",
+        "last_name": "Starr",
+        "email": "ringo@starr.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-04-02T16:57:29.176Z",
         "image": "",
         "groups": [],
         "user_permissions": []
