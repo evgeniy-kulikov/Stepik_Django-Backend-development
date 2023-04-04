@@ -44,15 +44,25 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
 
+
+
+
+users/templates/users/login.html
+line 8
+non_field_errors  # ловим ошибки сразу в двух полях как одну
+
+
+users/templates/users/registration.html.html
+line 12
+form.errors  # ловим ошибки отдельно для каждого поля
+
+
 ./manage.py makemigrations
-
-
-
 # выгрузка данных из базы (файлы с одинаковыми именами ПЕРЕЗАПИШУТЬСЯ !!!)
 # Первоначальный вариант суперпользователя (до урока 4.6)
 python -Xutf8 manage.py dumpdata --format=json --indent=4 auth.User > products/fixtures/user_first.json
 
-# Суперпользователь после создания приложения users (урок 4.6)
+# Суперпользователь + пользователи, после создания приложения users (урок 4.6)
 python -Xutf8 manage.py dumpdata --format=json --indent=4 users.User > products/fixtures/user.json
 python -Xutf8 manage.py dumpdata --format=json --indent=4 products.ProductCategory > products/fixtures/categories.json
 python -Xutf8 manage.py dumpdata --format=json --indent=4 products.Product > products/fixtures/goods.json
@@ -72,12 +82,18 @@ admin
 # Пользователь
 Ringo
 Starr
-ringostarr
+ringo
 ringo@starr.com
 Ringo1234#
 
 Paul
 McCartney
-Paul
+paul
 paul@mccartney.com
 Paul1234#
+
+Elton
+John
+elton
+elton@john.com
+Elton1234#

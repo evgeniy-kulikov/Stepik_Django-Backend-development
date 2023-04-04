@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$260000$1bTZxKRQJTepXlJQ7y4U9I$3fr6+iXAY+9uRcHFNdw12OLMsymy1SGNQL4HtAyRnt8=",
-        "last_login": "2023-04-02T15:16:18.642Z",
+        "last_login": "2023-04-04T17:00:36.235Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -23,16 +23,54 @@
     "pk": 2,
     "fields": {
         "password": "pbkdf2_sha256$260000$wjmFQ3FYRxNxiLFNmfyWCc$Wni/1MfWmmaIudQ68c1c4W40Cbt9r6b89a5xaB78qr0=",
-        "last_login": "2023-04-02T16:59:48.093Z",
+        "last_login": "2023-04-04T16:35:56.181Z",
         "is_superuser": false,
-        "username": "ringostarr",
+        "username": "ringo",
         "first_name": "Ringo",
         "last_name": "Starr",
         "email": "ringo@starr.com",
         "is_staff": false,
         "is_active": true,
         "date_joined": "2023-04-02T16:57:29.176Z",
-        "image": "",
+        "image": "users_images/ringo-starr.png",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$VpWzRBIpmgCRhpK3Umd0cb$Q7ECaOz/dvHZoksPTZok/K54d4Vz6PRCzOZ7Fz66xaU=",
+        "last_login": "2023-04-03T13:55:47.368Z",
+        "is_superuser": false,
+        "username": "paul",
+        "first_name": "Paul",
+        "last_name": "McCartney",
+        "email": "paul@mccartney.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-04-03T13:55:21.706Z",
+        "image": "users_images/paul-mccartney.jpg",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$Jdz8Q9B3sQlFiw6qzjYwSI$GOeowWYrIEZYxeKi/150KeA4uKUfxfUQPdTJAIwXcZA=",
+        "last_login": "2023-04-04T16:34:53.307Z",
+        "is_superuser": false,
+        "username": "elton",
+        "first_name": "Elton",
+        "last_name": "John",
+        "email": "elton@john.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-04-04T14:02:34.854Z",
+        "image": "users_images/elton-john.jpg",
         "groups": [],
         "user_permissions": []
     }
