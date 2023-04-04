@@ -56,6 +56,10 @@ users/templates/users/registration.html.html
 line 12
 form.errors  # ловим ошибки отдельно для каждого поля
 
+products/templates/products/base.html
+line 54
+href="{% url 'admin:index' %}"  # адрес админ-панели
+
 
 ./manage.py makemigrations
 # выгрузка данных из базы (файлы с одинаковыми именами ПЕРЕЗАПИШУТЬСЯ !!!)
