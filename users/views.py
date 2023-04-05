@@ -2,8 +2,9 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.contrib import auth, messages
 from django.urls import reverse
 
-from users.models import User
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from users.models import User
+from products.models import Basket
 
 
 def login(request):
@@ -51,7 +52,13 @@ def profile(request):
         # instance= (экземпляр)
         # instance=request.user передаем объект текущего пользователя
         form = UserProfileForm(instance=request.user)
-    context = {'title': 'Store - Профиль', 'form': form}
+    context = {
+        'title': 'Store - Профиль',
+        'form': form,
+        # 'baskets': Basket.objects.all(),
+        # Корзина текущего пользователя
+        'baskets': Basket.objects.filter(user=request.user),
+    }
     return render(request, 'users/profile.html', context=context)
 
 
