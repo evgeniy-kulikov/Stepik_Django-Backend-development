@@ -5,6 +5,7 @@ from django.urls import reverse
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from users.models import User
 from products.models import Basket
+from django.contrib.auth.decorators import login_required
 
 
 def login(request):
@@ -38,6 +39,9 @@ def registration(request):
     return render(request, 'users/registration.html', context=context)
 
 
+# Декоратор доступа
+# Контролер не будет отрабатывать, пока не будет произведена авторизация
+@login_required
 def profile(request):
     if request.method == "POST":
         # files=request.FILES   - для загрузки изображений

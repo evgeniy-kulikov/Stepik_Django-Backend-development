@@ -142,3 +142,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Users
 # Глобально переопределяем штатную модель пользователя
 AUTH_USER_MODEL = 'users.User'
+
+LOGIN_URL = '/users/login/'

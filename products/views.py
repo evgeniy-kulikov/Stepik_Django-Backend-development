@@ -4,6 +4,9 @@ from django.shortcuts import render, HttpResponseRedirect
 from products.models import Product, ProductCategory, Basket
 from users.models import User
 
+# Декоратор доступа
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
     context = {
@@ -22,6 +25,9 @@ def products(request):
     return render(request, 'products/products.html', context=context)
 
 
+# Декоратор доступа
+# Контролер не будет отрабатывать, пока не будет произведена авторизация
+@login_required
 def basket_add(request, product_id):
     product = Product.objects.get(id=product_id)  # Продукт, который будет добавлен в корзину.
 
@@ -40,6 +46,7 @@ def basket_add(request, product_id):
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
+@login_required
 def basket_remove(request, basket_id):
     basket = Basket.objects.get(id=basket_id)
     basket.delete()
