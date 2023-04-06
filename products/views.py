@@ -16,12 +16,32 @@ def index(request):
     return render(request, 'products/index.html', context=context)
 
 
-def products(request):
+# Если категория не указана, тогда 'category_id=None'  и отработает роут "path('', products, name='index')"
+def products(request, category_id=None):
+
+    # if category_id:
+    # Если категория указана, то фильтруем продукты по этой категории.
+
+    # Вариант 1
+    # category = ProductCategory.objects.get(id=category_id)
+    # products = Product.objects.filter(category=category)
+
+    # Вариант 2________________________category_id это внешний ключ 'category' таблицы 'Product'
+    #     products = Product.objects.filter(category_id=category_id)
+    # else:
+    #     #  Иначе отображаем все продукты.
+    #     products = Product.objects.all()
+
+    # Вариант 3 то же что и в варианте 2, но через тернарный оператор
+    products = Product.objects.filter(category_id=category_id) if category_id else Product.objects.all()
+
     context = {
         'title': 'Store - Каталог',
-        'products': Product.objects.all(),
+        # 'products': Product.objects.all(),
+        'products': products,
         'categories': ProductCategory.objects.all(),
     }
+
     return render(request, 'products/products.html', context=context)
 
 
