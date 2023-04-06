@@ -23,11 +23,37 @@ class Product(models.Model):
         return f'Продукт: {self.name} | Категория: {self.category.name}'
 
 
+class BasketQuerySet(models.QuerySet):
+    def total_sum(self):
+        # baskets = Basket.objects.filter(user=self.user)  # Корзина текущего пользователя
+        return sum(item.sum_goods() for item in self)
+
+    def total_quantity(self):
+        # baskets = Basket.objects.filter(user=self.user)  # Корзина текущего пользователя
+        return sum(item.quantity for item in self)
+
+
 class Basket(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField(default=0)
     created_timestamp = models.DateTimeField(auto_now_add=True)
 
+    # Переопределенный менеджер объекта для данного класса
+    objects = BasketQuerySet.as_manager()
+
     def __str__(self):
         return f'Корзина для {self.user.username} | Продукт: {self.product.name}'
+
+    #  Количество товаров в корзине
+    def sum_goods(self):
+        return self.product.price * self.quantity
+
+    # 2-й вариант (users/views.py  line 67)
+    # def total_sum(self):
+    #     baskets = Basket.objects.filter(user=self.user)  # Корзина текущего пользователя
+    #     return sum(item.sum_goods() for item in baskets)
+    #
+    # def total_quantity(self):
+    #     baskets = Basket.objects.filter(user=self.user)  # Корзина текущего пользователя
+    #     return sum(item.quantity for item in baskets)

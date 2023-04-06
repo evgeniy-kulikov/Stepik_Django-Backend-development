@@ -52,12 +52,30 @@ def profile(request):
         # instance= (экземпляр)
         # instance=request.user передаем объект текущего пользователя
         form = UserProfileForm(instance=request.user)
+
+    # Получение общей суммы и кол-ва товаров в корзине текущего пользователя через логику контроллера:
+    # Реализация 2-х вариантов. Третий вариант реализован в модели products/models.py -> line 26, 43
+    # baskets = Basket.objects.filter(user=request.user)  # Корзина текущего пользователя
+
+    # 1-й вариант
+    # total_sum = 0
+    # total_quantity = 0
+    # for item in baskets:
+    #     total_sum += item.sum_goods()
+    #     total_quantity += item.quantity
+
+    # 2-й вариант
+    # Используем встроенную python функцию sum()
+    # total_sum = sum(item.sum_goods() for item in baskets)
+    # total_quantity = sum(item.quantity for item in baskets)
+
     context = {
         'title': 'Store - Профиль',
         'form': form,
-        # 'baskets': Basket.objects.all(),
-        # Корзина текущего пользователя
-        'baskets': Basket.objects.filter(user=request.user),
+        # Внимание !!! При реализации 3-го варианта (в модели products/models.py -> 43) 'objects' переопределен
+        'baskets': Basket.objects.filter(user=request.user),  # Корзина текущего пользователя
+        # 'total_sum': total_sum,
+        # 'total_quantity': total_quantity,
     }
     return render(request, 'users/profile.html', context=context)
 
