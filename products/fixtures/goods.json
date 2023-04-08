@@ -1,74 +1,182 @@
 [
-  {
+{
     "model": "products.product",
     "pk": 1,
     "fields": {
-      "name": "Худи черного цвета с монограммами adidas Originals",
-      "description": "Мягкая ткань для свитшотов. Стиль и комфорт – это образ жизни.",
-      "price": "6090.00",
-      "quantity": 10,
-      "image": "products_images/Adidas-hoodie.png",
-      "category": 1
+        "name": "Худи черного цвета с монограммами adidas Originals",
+        "description": "Мягкая ткань для свитшотов. Стиль и комфорт – это образ жизни.",
+        "price": "6090.00",
+        "quantity": 10,
+        "image": "products_images/Adidas-hoodie.png",
+        "category": 1
     }
-  },
-  {
+},
+{
     "model": "products.product",
     "pk": 2,
     "fields": {
-      "name": "Синяя куртка The North Face",
-      "description": "Гладкая ткань. Водонепроницаемое покрытие. Легкий и теплый пуховый наполнитель.",
-      "price": "23725.00",
-      "quantity": 15,
-      "image": "products_images/Blue-jacket-The-North-Face.png",
-      "category": 2
+        "name": "Синяя куртка The North Face",
+        "description": "Гладкая ткань. Водонепроницаемое покрытие. Легкий и теплый пуховый наполнитель.",
+        "price": "23725.00",
+        "quantity": 15,
+        "image": "products_images/Blue-jacket-The-North-Face.png",
+        "category": 2
     }
-  },
-  {
+},
+{
     "model": "products.product",
     "pk": 3,
     "fields": {
-      "name": "Коричневый спортивный oversized-топ ASOS DESIGN",
-      "description": "Материал с плюшевой текстурой. Удобный и мягкий.",
-      "price": "3390.00",
-      "quantity": 20,
-      "image": "products_images/Brown-sports-oversized-top-ASOS-DESIGN.png",
-      "category": 1
+        "name": "Коричневый спортивный oversized-топ ASOS DESIGN",
+        "description": "Материал с плюшевой текстурой. Удобный и мягкий.",
+        "price": "3390.00",
+        "quantity": 20,
+        "image": "products_images/Brown-sports-oversized-top-ASOS-DESIGN.png",
+        "category": 1
     }
-  },
-  {
+},
+{
     "model": "products.product",
     "pk": 4,
     "fields": {
-      "name": "Черный рюкзак Nike Heritage",
-      "description": "Плотная ткань. Легкий материал.",
-      "price": "2340.00",
-      "quantity": 5,
-      "image": "products_images/Black-Nike-Heritage-backpack.png",
-      "category": 4
+        "name": "Черный рюкзак Nike Heritage",
+        "description": "Плотная ткань. Легкий материал.",
+        "price": "2340.00",
+        "quantity": 5,
+        "image": "products_images/Black-Nike-Heritage-backpack.png",
+        "category": 4
     }
-  },
-  {
+},
+{
     "model": "products.product",
     "pk": 5,
     "fields": {
-      "name": "Черные туфли на платформе с 3 парами люверсов Dr Martens 1461 Bex",
-      "description": "Гладкий кожаный верх. Натуральный материал.",
-      "price": "13590.00",
-      "quantity": 12,
-      "image": "products_images/Black-Dr-Martens-shoes.png",
-      "category": 3
+        "name": "Черные туфли на платформе с 3 парами люверсов Dr Martens 1461 Bex",
+        "description": "Гладкий кожаный верх. Натуральный материал.",
+        "price": "13590.00",
+        "quantity": 12,
+        "image": "products_images/Black-Dr-Martens-shoes.png",
+        "category": 3
     }
-  },
-  {
+},
+{
     "model": "products.product",
     "pk": 6,
     "fields": {
-      "name": "Темно-синие широкие строгие брюки ASOS DESIGN",
-      "description": "Легкая эластичная ткань сирсакер Фактурная ткань.",
-      "price": "2890.00",
-      "quantity": 25,
-      "image": "products_images/Dark-blue-wide-leg-ASOs-DESIGN-trousers.png",
-      "category": 2
+        "name": "Темно-синие широкие строгие брюки ASOS DESIGN",
+        "description": "Легкая эластичная ткань сирсакер Фактурная ткань.",
+        "price": "2890.00",
+        "quantity": 25,
+        "image": "products_images/Dark-blue-wide-leg-ASOs-DESIGN-trousers.png",
+        "category": 2
     }
-  }
+},
+{
+    "model": "products.product",
+    "pk": 7,
+    "fields": {
+        "name": "Кроссовки Nike джордан (искусственная кожа, текстиль)",
+        "description": "Современные кроссовки сохраняют верность традициям благодаря мягкой амортизации и объемной подошве.",
+        "price": "5700.00",
+        "quantity": 9,
+        "image": "products_images/Кроссовки_Nike_джордан.png",
+        "category": 3
+    }
+},
+{
+    "model": "products.product",
+    "pk": 8,
+    "fields": {
+        "name": "Кроссовки Nike Air Force. Отличаются высоким уровнем комфорта",
+        "description": "Очень хорошо спроектированы с тщательной амортизацией для максимального комфорта.",
+        "price": "7900.00",
+        "quantity": 7,
+        "image": "products_images/Кроссовки_Nike_Air_Force.png",
+        "category": 3
+    }
+},
+{
+    "model": "products.product",
+    "pk": 9,
+    "fields": {
+        "name": "Бейсболка DaNico. Цвет - глубокий черный",
+        "description": "Бейсболка с прямым козырьком для лучшей защиты от солнца или модели бейсболка с сеткой для оптимальной вентиляции.",
+        "price": "2300.00",
+        "quantity": 15,
+        "image": "products_images/Бейсболка_DaNico.png",
+        "category": 4
+    }
+},
+{
+    "model": "products.product",
+    "pk": 10,
+    "fields": {
+        "name": "ORANGE Cotton Шапка со снудом для мальчика детская",
+        "description": "Комплект шапка детская осень весна и снуд для мальчика гладкий трикотаж демисезон, осень и лето",
+        "price": "990.00",
+        "quantity": 20,
+        "image": "products_images/Шапка_ORANGE_Cotton.png",
+        "category": 4
+    }
+},
+{
+    "model": "products.product",
+    "pk": 11,
+    "fields": {
+        "name": "Брелок Ti Sento",
+        "description": "Брелоком можно украсить ключи от дома, автомобильные ключи, сумку, сумочку рюкзак.",
+        "price": "650.00",
+        "quantity": 5,
+        "image": "products_images/Брелок_Ti_Sento.png",
+        "category": 5
+    }
+},
+{
+    "model": "products.product",
+    "pk": 12,
+    "fields": {
+        "name": "Куртка Federico Forte Универсальная",
+        "description": "Удобная непродуваемая кожаная куртка это настоящая находка для каждого мужчины. Такая мужская верхняя одежда отлично подходит на сезон весна и лето.",
+        "price": "11590.00",
+        "quantity": 5,
+        "image": "products_images/Куртка_Federico_Forte.png",
+        "category": 1
+    }
+},
+{
+    "model": "products.product",
+    "pk": 13,
+    "fields": {
+        "name": "CNC_XV Косуха кожаная куртка весенняя",
+        "description": "Классическая трендовая мужская косуха - самый мощный модный тренд конца уходящего года! Благодаря своему премиум качеству и отточеному стилю она станется хитом",
+        "price": "7400.00",
+        "quantity": 4,
+        "image": "products_images/Косуха_кожаная_куртка_весенняя.png",
+        "category": 2
+    }
+},
+{
+    "model": "products.product",
+    "pk": 14,
+    "fields": {
+        "name": "АФРОДИТА Ювелирный подарок на свадьбу",
+        "description": "Амулет-оберег \"Афродита\" - идеальный подарок на помолвку, свадьбу, годовщину и новый год! Амулет Афродита - это оберег семейного счастья и любви!",
+        "price": "3400.00",
+        "quantity": 5,
+        "image": "products_images/Ювелирный_подарок_женщине.png",
+        "category": 5
+    }
+},
+{
+    "model": "products.product",
+    "pk": 15,
+    "fields": {
+        "name": "Кроличья лапка на удачу",
+        "description": "Серебряный брелок - подвеска в виде заячьей лапки от бренда Золотой Меркурий - отличный способ порадовать близкого человека стильным и качественным украшением.",
+        "price": "3100.00",
+        "quantity": 7,
+        "image": "products_images/Кроличья_лапка_на_удачу.jpg",
+        "category": 5
+    }
+}
 ]

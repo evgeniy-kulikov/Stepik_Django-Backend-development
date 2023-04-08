@@ -3,6 +3,7 @@ from django.shortcuts import render, HttpResponseRedirect
 
 from products.models import Product, ProductCategory, Basket
 from users.models import User
+from django.core.paginator import Paginator
 
 # Декоратор доступа
 from django.contrib.auth.decorators import login_required
@@ -17,29 +18,31 @@ def index(request):
 
 
 # Если категория не указана, тогда 'category_id=None'  и отработает роут "path('', products, name='index')"
-def products(request, category_id=None):
+def products(request, category_id=None, page_number=1):
 
     # if category_id:
     # Если категория указана, то фильтруем продукты по этой категории.
-
-    # Вариант 1
-    # category = ProductCategory.objects.get(id=category_id)
-    # products = Product.objects.filter(category=category)
-
-    # Вариант 2________________________category_id это внешний ключ 'category' таблицы 'Product'
+    # Вариант 1________________________category_id это внешний ключ 'category' таблицы 'Product'
     #     products = Product.objects.filter(category_id=category_id)
     # else:
     #     #  Иначе отображаем все продукты.
     #     products = Product.objects.all()
 
-    # Вариант 3 то же что и в варианте 2, но через тернарный оператор
+    # Вариант 2 то же что и в варианте 1, но через тернарный оператор
     products = Product.objects.filter(category_id=category_id) if category_id else Product.objects.all()
+    per_page = 3  # кол-во страниц для пагинации
+    paginator = Paginator(products, per_page)  # Весь список, разделенный на страницы
+    products_paginator = paginator.page(page_number)  # Страница из этого списка
+
+    # page_number = request.GET.get('page')
+    # page_obj = paginator.get_page(page_number)
 
     context = {
         'title': 'Store - Каталог',
-        # 'products': Product.objects.all(),
-        'products': products,
+        'products': products_paginator,
         'categories': ProductCategory.objects.all(),
+
+        # 'page_obj': page_obj,
     }
 
     return render(request, 'products/products.html', context=context)
