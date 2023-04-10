@@ -8,13 +8,27 @@ from django.core.paginator import Paginator
 # Декоратор доступа
 from django.contrib.auth.decorators import login_required
 
+from django.views.generic.base import TemplateView
 
-def index(request):
-    context = {
-        'title': 'Store',
-        'is_promotion': True,
-    }
-    return render(request, 'products/index.html', context=context)
+
+class IndexView(TemplateView):
+    template_name = 'products/index.html'
+
+    # Для передачи контекста используем метод "get_context_data"
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data()
+        context['title'] = 'Store'
+        return context
+
+
+
+
+# def index(request):
+#     context = {
+#         'title': 'Store',
+#         'is_promotion': True,
+#     }
+#     return render(request, 'products/index.html', context=context)
 
 
 # Если категория не указана, тогда 'category_id=None'  и отработает роут "path('', products, name='index')"

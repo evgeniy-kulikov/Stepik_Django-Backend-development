@@ -21,11 +21,17 @@ from django.conf.urls.static import static
 from django.conf import settings
 # from store import settings # Так тоже работает, но строчка выше будет лучше, т.к. загрузятся все настройки проекта
 
-from products.views import index, products
+from products.views import IndexView  # index, products
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='index'),
+
+    # path('', index, name='index'),  # FBV
+
+    # Контекст можно передать через "extra_context="
+    # path('', IndexView.as_view(extra_context={'title': 'Store'}), name='index'),
+
+    path('', IndexView.as_view(), name='index'),  # CBV
 
     path("products/", include("products.urls", namespace='products')),
     path("users/", include("users.urls", namespace='users')),
