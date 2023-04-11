@@ -11,11 +11,10 @@
 
 {% block content %}
 <div class="container">
-
     <div class="row">
 
+<!--Menu categories-->
         <div class="col-lg-3">
-
             <h1 class="my-3">Store</h1>
             <div class="list-group">
                 {% for item in categories %}
@@ -27,7 +26,7 @@
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
-
+<!--Carousel-->
             <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -55,8 +54,11 @@
                 </a>
             </div>
 
+<!--Card products-->
             <div class="row">
-            {% for item in products %}
+<!--            {# {% for item in products %} #}-->
+<!-- object_list - имя контекста по умолчанию для класса ListView  -->
+            {% for item in object_list %}
                 <div class="col-lg-4 col-md-6 mb-4">
                     {{ item.category }}
                     <div class="card h-100">
@@ -84,7 +86,6 @@
 {% include "products/paginator.html" %}
 
         </div>
-
     </div>
 
 </div>

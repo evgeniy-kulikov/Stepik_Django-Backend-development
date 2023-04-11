@@ -1,27 +1,34 @@
+
 {% if is_paginated %}
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
 
         <li class="page-item {% if not page_obj.has_previous %} disabled {% endif %}">
             <a class="page-link"
-               href="{% if page_obj.has_previous %} ?page={{ page_obj.previous_page_number }} {% else %} # {% endif %}"
+               href="{% if page_obj.has_previous %} {% url 'products:paginator' page_obj.previous_page_number %} {% else %} # {% endif %}"
                tabindex="-1" aria-disabled="true">
                 Предыдущая</a>
         </li>
 
-        {% for page_item in page_obj.paginator.page_range %}
+        {% for page_item in paginator.page_range %}
         {% if page_obj.number == page_item %}
-        <li class="page-item disabled"><a class="page-link" href="#">{{ page_item }}</a></li>
+
+        <li class="page-item disabled"><a class="page-link"
+               href="#">
+            {{ page_item }}
+         </a></li>
 
         {% elif page_item >= page_obj.number|add:-2 and page_item <= page_obj.number|add:2 %}
+        <li class="page-item"><a class="page-link" href="{% url 'products:paginator' page_item %}">
+            {{ page_item }}
+        </a></li>
 
-        <li class="page-item"><a class="page-link" href="?page={{ page_item }}">{{ page_item }}</a></li>
         {% endif %}
         {% endfor %}
 
         <li class="page-item {% if not page_obj.has_next %} disabled {% endif %}">
             <a class="page-link"
-               href="{% if page_obj.has_next %} ?page={{ page_obj.next_page_number }} {% else %}#{% endif %}">
+               href="{% if page_obj.has_next %} {% url 'products:paginator' page_obj.next_page_number %} {% else %} # {% endif %}">
                 Следующая</a>
         </li>
     </ul>

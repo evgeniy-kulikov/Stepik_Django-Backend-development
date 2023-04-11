@@ -9,6 +9,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 
 from django.views.generic.base import TemplateView
+from django.views.generic import ListView
 
 
 class IndexView(TemplateView):
@@ -16,13 +17,11 @@ class IndexView(TemplateView):
 
     # Для передачи контекста используем метод "get_context_data"
     def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data()
-        context['title'] = 'Store'
+        context = super(IndexView, self).get_context_data()  # для сохранения функционала метода родительского класса
+        context['title'] = 'Store'  # переопределение (расширение) метода родительского класса
         return context
 
-
-
-
+# Решение через FBV
 # def index(request):
 #     context = {
 #         'title': 'Store',
@@ -31,35 +30,41 @@ class IndexView(TemplateView):
 #     return render(request, 'products/index.html', context=context)
 
 
+class ProductsListView(ListView):
+    model = Product
+    template_name = 'products/products.html'
+    paginate_by = 3
+
+    # Переопределяем "context" на свое имя. Можно в шаблоне все заменить на "object_list" - имя контекста по умолчанию
+    # context_object_name = 'products'
+
+# Формируем queryset для category
+    def get_queryset(self):
+        queryset = super(ProductsListView, self).get_queryset()
+        category = self.kwargs.get('category_val')  # 'category' это <int:category_val>
+        return queryset.filter(category_id=category) if category else queryset
+
+    # Формируем необходимый контекст
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ProductsListView, self).get_context_data()
+        context['title'] = 'Store - Каталог'
+        context['categories'] = ProductCategory.objects.all()
+        return context
+
+
+# Решение через FBV
 # Если категория не указана, тогда 'category_id=None'  и отработает роут "path('', products, name='index')"
-def products(request, category_id=None, page_number=1):
-
-    # if category_id:
-    # Если категория указана, то фильтруем продукты по этой категории.
-    # Вариант 1________________________category_id это внешний ключ 'category' таблицы 'Product'
-    #     products = Product.objects.filter(category_id=category_id)
-    # else:
-    #     #  Иначе отображаем все продукты.
-    #     products = Product.objects.all()
-
-    # Вариант 2 то же что и в варианте 1, но через тернарный оператор
-    products = Product.objects.filter(category_id=category_id) if category_id else Product.objects.all()
-    per_page = 3  # кол-во страниц для пагинации
-    paginator = Paginator(products, per_page)  # Весь список, разделенный на страницы
-    products_paginator = paginator.page(page_number)  # Страница из этого списка
-
-    # page_number = request.GET.get('page')
-    # page_obj = paginator.get_page(page_number)
-
-    context = {
-        'title': 'Store - Каталог',
-        'products': products_paginator,
-        'categories': ProductCategory.objects.all(),
-
-        # 'page_obj': page_obj,
-    }
-
-    return render(request, 'products/products.html', context=context)
+# def products(request, category_val=None, page_number=1):
+#     products = Product.objects.filter(category_id=category_val) if category_val else Product.objects.all()
+#     per_page = 3  # кол-во страниц для пагинации
+#     paginator = Paginator(products, per_page)  # Весь список, разделенный на страницы
+#     products_paginator = paginator.page(page_number)  # Страница из этого списка
+#     context = {
+#         'title': 'Store - Каталог',
+#         'products': products_paginator,
+#         'categories': ProductCategory.objects.all(),
+#     }
+#     return render(request, 'products/products.html', context=context)
 
 
 # Декоратор доступа
