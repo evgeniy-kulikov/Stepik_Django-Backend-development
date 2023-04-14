@@ -1,15 +1,16 @@
 # from django.http import HttpResponseRedirect
-from django.shortcuts import render, HttpResponseRedirect
-
-from products.models import Product, ProductCategory, Basket
 from users.models import User
 from django.core.paginator import Paginator
+
+from django.shortcuts import render, HttpResponseRedirect
+from products.models import Product, ProductCategory, Basket
 
 # Декоратор доступа
 from django.contrib.auth.decorators import login_required
 
 from django.views.generic.base import TemplateView
-from django.views.generic import ListView
+from django.views.generic.list import ListView
+
 
 
 class IndexView(TemplateView):
@@ -72,6 +73,7 @@ class ProductsListView(ListView):
 @login_required
 def basket_add(request, product_id):
     product = Product.objects.get(id=product_id)  # Продукт, который будет добавлен в корзину.
+    baskets = Basket.objects.filter(user=request.user, product=product)
 
     # Получаем все корзины, где есть данный продукт, и берем из них корзину текущего авторизованного пользователя.
     # Возьмутся все корзины текущего авторизованного пользователя, где есть данный продукт.

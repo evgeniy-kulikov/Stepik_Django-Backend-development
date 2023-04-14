@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib import auth, messages
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+
+from django.views.generic.edit import CreateView, UpdateView
 
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from users.models import User
@@ -25,63 +27,95 @@ def login(request):
     return render(request, 'users/login.html', context=context)
 
 
-def registration(request):
-    if request.method == 'POST':
-        form = UserRegistrationForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            # Вывод сообщения об успешной регистрации
-            messages.success(request, 'Регистрация прошла успешно!')
-            return HttpResponseRedirect(redirect_to=reverse('users:login'))
-    else:
-        form = UserRegistrationForm()
-    context = {'form': form}
-    return render(request, 'users/registration.html', context=context)
+class UserRegistrationView(CreateView):
+    model = User
+    form_class = UserRegistrationForm
+    template_name = 'users/registration.html'
+    success_url = reverse_lazy('users:login')
+
+    def get_context_data(self, **kwargs):
+        context = super(UserRegistrationView, self).get_context_data()
+        context['title'] = 'Store - Регистрация'
+        return context
+
+
+# Решение через FBV
+# def registration(request):
+#     if request.method == 'POST':
+#         form = UserRegistrationForm(data=request.POST)
+#         if form.is_valid():
+#             form.save()
+#             # Вывод сообщения об успешной регистрации
+#             messages.success(request, 'Регистрация прошла успешно!')
+#             return HttpResponseRedirect(redirect_to=reverse('users:login'))
+#     else:
+#         form = UserRegistrationForm()
+#     context = {'form': form}
+#     return render(request, 'users/registration.html', context=context)
+
+
+class UserProfileView(UpdateView):
+    model = User
+    form_class = UserProfileForm
+    template_name = 'users/profile.html'
+    # success_url = reverse_lazy('users:profile')  # Нет возможности передать <int:pk>
+
+    # Переопределяем метод "get_success_url()" для возможности передачи <int:pk> в роут
+    def get_success_url(self):
+        return reverse_lazy('users:profile', args=(self.object.id,))  # "id,))"  - запятая, т.к. это кортеж
+
+    def get_context_data(self, **kwargs):
+        context = super(UserProfileView, self).get_context_data()
+        context['title'] = 'Store - Личный кабинет'
+        context['baskets'] = Basket.objects.filter(user=self.object)  # равнозначный метод
+        # context['baskets'] = Basket.objects.filter(user=self.request.user)  # равнозначный метод
+        return context
+
 
 
 # Декоратор доступа
 # Контролер не будет отрабатывать, пока не будет произведена авторизация
-@login_required
-def profile(request):
-    if request.method == "POST":
-        # files=request.FILES   - для загрузки изображений
-        form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(redirect_to=reverse('users:profile'))
-        # Так можно для проверки выводить в консоль ошибки
-        else:
-            print(form.errors)
-    else:
-        # instance= (экземпляр)
-        # instance=request.user передаем объект текущего пользователя
-        form = UserProfileForm(instance=request.user)
-
-    # Получение общей суммы и кол-ва товаров в корзине текущего пользователя через логику контроллера:
-    # Реализация 2-х вариантов. Третий вариант реализован в модели products/models.py -> line 26, 43
-    # baskets = Basket.objects.filter(user=request.user)  # Корзина текущего пользователя
-
-    # 1-й вариант
-    # total_sum = 0
-    # total_quantity = 0
-    # for item in baskets:
-    #     total_sum += item.sum_goods()
-    #     total_quantity += item.quantity
-
-    # 2-й вариант
-    # Используем встроенную python функцию sum()
-    # total_sum = sum(item.sum_goods() for item in baskets)
-    # total_quantity = sum(item.quantity for item in baskets)
-
-    context = {
-        'title': 'Store - Профиль',
-        'form': form,
-        # Внимание !!! При реализации 3-го варианта (в модели products/models.py -> 43) 'objects' переопределен
-        'baskets': Basket.objects.filter(user=request.user),  # Корзина текущего пользователя
-        # 'total_sum': total_sum,
-        # 'total_quantity': total_quantity,
-    }
-    return render(request, 'users/profile.html', context=context)
+# @login_required
+# def profile(request):
+#     if request.method == "POST":
+#         # files=request.FILES   - для загрузки изображений
+#         form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponseRedirect(redirect_to=reverse('users:profile'))
+#         # Так можно для проверки выводить в консоль ошибки
+#         else:
+#             print(form.errors)
+#     else:
+#         # instance= (экземпляр)
+#         # instance=request.user передаем объект текущего пользователя
+#         form = UserProfileForm(instance=request.user)
+#
+#     # Получение общей суммы и кол-ва товаров в корзине текущего пользователя через логику контроллера:
+#     # Реализация 2-х вариантов. Третий вариант реализован в модели products/models.py -> line 26, 43
+#     # baskets = Basket.objects.filter(user=request.user)  # Корзина текущего пользователя
+#
+#     # 1-й вариант
+#     # total_sum = 0
+#     # total_quantity = 0
+#     # for item in baskets:
+#     #     total_sum += item.sum_goods()
+#     #     total_quantity += item.quantity
+#
+#     # 2-й вариант
+#     # Используем встроенную python функцию sum()
+#     # total_sum = sum(item.sum_goods() for item in baskets)
+#     # total_quantity = sum(item.quantity for item in baskets)
+#
+#     context = {
+#         'title': 'Store - Профиль',
+#         'form': form,
+#         # Внимание !!! При реализации 3-го варианта (в модели products/models.py -> 43) 'objects' переопределен
+#         'baskets': Basket.objects.filter(user=request.user),  # Корзина текущего пользователя
+#         # 'total_sum': total_sum,
+#         # 'total_quantity': total_quantity,
+#     }
+#     return render(request, 'users/profile.html', context=context)
 
 
 def logout(request):
