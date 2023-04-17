@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib import auth, messages
 from django.urls import reverse, reverse_lazy
@@ -7,24 +8,39 @@ from django.views.generic.edit import CreateView, UpdateView
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from users.models import User
 from products.models import Basket
+from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 
 
-def login(request):
-    if request.method == 'POST':
-        form = UserLoginForm(data=request.POST)  # заполняем форму полученными данными
-        if form.is_valid():
-            username = request.POST['username']  # получаем данные
-            password = request.POST['password']
-            user = auth.authenticate(username=username, password=password)  # проверка подлинности (существования) пользователя
-            if user:
-                auth.login(request, user)
-                return HttpResponseRedirect(redirect_to=reverse('index'))
-    else:  # request.method == 'GET' запрос
-        form = UserLoginForm()
-    # context = {'form': UserLoginForm()}
-    context = {'form': form}
-    return render(request, 'users/login.html', context=context)
+class UserLoginView(LoginView):
+    # Модель уже определена в settings.py:  AUTH_USER_MODEL = 'users.User'
+    template_name = 'users/login.html'
+    form_class = UserLoginForm
+    # success_url = reverse_lazy('index')  # Так не заработало. Тогда прописали в settings.py: LOGIN_REDIRECT_URL = '/'
+
+
+# def login(request):
+#     if request.method == 'POST':
+#         form = UserLoginForm(data=request.POST)  # заполняем форму полученными данными
+#         if form.is_valid():
+#             username = request.POST['username']  # получаем данные
+#             password = request.POST['password']
+#             user = auth.authenticate(username=username, password=password)  # проверка подлинности (существования) пользователя
+#             if user:
+#                 auth.login(request, user)
+#                 return HttpResponseRedirect(redirect_to=reverse('index'))
+#     else:  # request.method == 'GET' запрос
+#         form = UserLoginForm()
+#     # context = {'form': UserLoginForm()}
+#     context = {'form': form}
+#     return render(request, 'users/login.html', context=context)
+
+# Класс LogoutView взяли целиком как есть и указали его в users/urls.py.
+# Только прописали в settings.py: LOGOUT_REDIRECT_URL = '/'
+
+# def logout(request):
+#     auth.logout(request)
+#     return HttpResponseRedirect(redirect_to=reverse('index'))
 
 
 class UserRegistrationView(CreateView):
@@ -54,15 +70,31 @@ class UserRegistrationView(CreateView):
 #     return render(request, 'users/registration.html', context=context)
 
 
-class UserProfileView(UpdateView):
+class UserProfileView(LoginRequiredMixin, UpdateView):
+# class UserProfileView(UpdateView):
     model = User
     form_class = UserProfileForm
     template_name = 'users/profile.html'
+    # Атрибут для LoginRequiredMixin, служащий для перенаправления пользователя который не залогинен
+    login_url = reverse_lazy('users:login')
     # success_url = reverse_lazy('users:profile')  # Нет возможности передать <int:pk>
 
     # Переопределяем метод "get_success_url()" для возможности передачи <int:pk> в роут
     def get_success_url(self):
         return reverse_lazy('users:profile', args=(self.object.id,))  # "id,))"  - запятая, т.к. это кортеж
+
+    # Возможность извлечения одного объекта для дальнейших манипуляций "class SingleObjectMixin(ContextMixin)".
+    # Переопределяем его "метод get_object()"
+    # Получаем объект исходя из id пользователя, который сделал запрос.
+    # При данной реализации нет необходимости передавать pk в ссылке
+    # def get_object(self, queryset=None):
+    #     queryset = self.get_queryset()
+    #     user = queryset.get(pk=self.request.user.id)
+    #     return user
+
+    #  Улучшаем (для исключения двух одинаковых запросов)
+    def get_object(self, queryset=None):
+        return self.request.user
 
     def get_context_data(self, **kwargs):
         context = super(UserProfileView, self).get_context_data()
@@ -117,7 +149,3 @@ class UserProfileView(UpdateView):
 #     }
 #     return render(request, 'users/profile.html', context=context)
 
-
-def logout(request):
-    auth.logout(request)
-    return HttpResponseRedirect(redirect_to=reverse('index'))

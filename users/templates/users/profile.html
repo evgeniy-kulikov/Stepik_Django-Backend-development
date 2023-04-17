@@ -8,6 +8,7 @@
 {% block content %}
 
 <!--Проверка соответствия пользователя по id-->
+<!--Работает, если нет переопределенного метода get_object в UserProfileView-->
 {% if request.user.id == user.id %}
 
    <div class="container">
