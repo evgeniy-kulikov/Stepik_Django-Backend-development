@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib import auth, messages
 from django.urls import reverse, reverse_lazy
@@ -9,15 +10,16 @@ from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from users.models import User
 from products.models import Basket
 from django.contrib.auth.views import LoginView
+from common.views import TitleMixin
 from django.contrib.auth.decorators import login_required
 
 
-class UserLoginView(LoginView):
+class UserLoginView(TitleMixin, LoginView):
     # Модель уже определена в settings.py:  AUTH_USER_MODEL = 'users.User'
     template_name = 'users/login.html'
     form_class = UserLoginForm
     # success_url = reverse_lazy('index')  # Так не заработало. Тогда прописали в settings.py: LOGIN_REDIRECT_URL = '/'
-
+    title = 'Store - Авторизация'
 
 # def login(request):
 #     if request.method == 'POST':
@@ -43,16 +45,19 @@ class UserLoginView(LoginView):
 #     return HttpResponseRedirect(redirect_to=reverse('index'))
 
 
-class UserRegistrationView(CreateView):
+class UserRegistrationView(TitleMixin, SuccessMessageMixin, CreateView):  # SuccessMessageMixin - создание всплывающего сообщения
     model = User
     form_class = UserRegistrationForm
     template_name = 'users/registration.html'
     success_url = reverse_lazy('users:login')
+    success_message = 'Вы успешно зарегистрированы!'
+    title = 'Store - Регистрация'
 
-    def get_context_data(self, **kwargs):
-        context = super(UserRegistrationView, self).get_context_data()
-        context['title'] = 'Store - Регистрация'
-        return context
+    # через миксин "TitleMixin"
+    # def get_context_data(self, **kwargs):
+    #     context = super(UserRegistrationView, self).get_context_data()
+    #     context['title'] = 'Store - Регистрация'
+    #     return context
 
 
 # Решение через FBV
@@ -62,7 +67,7 @@ class UserRegistrationView(CreateView):
 #         if form.is_valid():
 #             form.save()
 #             # Вывод сообщения об успешной регистрации
-#             messages.success(request, 'Регистрация прошла успешно!')
+#             messages.success(request, 'Вы успешно зарегистрированы!')
 #             return HttpResponseRedirect(redirect_to=reverse('users:login'))
 #     else:
 #         form = UserRegistrationForm()
@@ -70,14 +75,14 @@ class UserRegistrationView(CreateView):
 #     return render(request, 'users/registration.html', context=context)
 
 
-class UserProfileView(LoginRequiredMixin, UpdateView):
-# class UserProfileView(UpdateView):
+class UserProfileView(TitleMixin, LoginRequiredMixin, UpdateView):
     model = User
     form_class = UserProfileForm
     template_name = 'users/profile.html'
     # Атрибут для LoginRequiredMixin, служащий для перенаправления пользователя который не залогинен
     login_url = reverse_lazy('users:login')
     # success_url = reverse_lazy('users:profile')  # Нет возможности передать <int:pk>
+    title = 'Store - Личный кабинет'
 
     # Переопределяем метод "get_success_url()" для возможности передачи <int:pk> в роут
     def get_success_url(self):
@@ -98,7 +103,7 @@ class UserProfileView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(UserProfileView, self).get_context_data()
-        context['title'] = 'Store - Личный кабинет'
+        # context['title'] = 'Store - Личный кабинет'  # через миксин "TitleMixin"
         context['baskets'] = Basket.objects.filter(user=self.object)  # равнозначный метод
         # context['baskets'] = Basket.objects.filter(user=self.request.user)  # равнозначный метод
         return context

@@ -2,6 +2,7 @@
 from users.models import User
 from django.core.paginator import Paginator
 
+from common.views import TitleMixin
 from django.shortcuts import render, HttpResponseRedirect
 from products.models import Product, ProductCategory, Basket
 
@@ -12,15 +13,21 @@ from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
 
-
-class IndexView(TemplateView):
+# Для передачи контекста, отказались от переопределение метода "get_context_data"
+# Вместо него задействовали собственный миксин TitleMixin
+class IndexView(TitleMixin, TemplateView):
     template_name = 'products/index.html'
+    title = 'Store'
 
-    # Для передачи контекста используем метод "get_context_data"
-    def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data()  # для сохранения функционала метода родительского класса
-        context['title'] = 'Store'  # переопределение (расширение) метода родительского класса
-        return context
+
+# class IndexView(TemplateView):
+#     template_name = 'products/index.html'
+#
+#     # Для передачи контекста используем метод "get_context_data"
+#     def get_context_data(self, **kwargs):
+#         context = super(IndexView, self).get_context_data()  # для сохранения функционала метода родительского класса
+#         context['title'] = 'Store'  # переопределение (расширение) метода родительского класса
+#         return context
 
 # Решение через FBV
 # def index(request):
@@ -31,10 +38,11 @@ class IndexView(TemplateView):
 #     return render(request, 'products/index.html', context=context)
 
 
-class ProductsListView(ListView):
+class ProductsListView(TitleMixin, ListView):
     model = Product
     template_name = 'products/products.html'
     paginate_by = 3
+    title = 'Store - Каталог'
 
     # Переопределяем "context" на свое имя. Можно в шаблоне все заменить на "object_list" - имя контекста по умолчанию
     # context_object_name = 'products'
@@ -48,7 +56,7 @@ class ProductsListView(ListView):
     # Формируем необходимый контекст
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ProductsListView, self).get_context_data()
-        context['title'] = 'Store - Каталог'
+        # context['title'] = 'Store - Каталог'  # через миксин "TitleMixin"
         context['categories'] = ProductCategory.objects.all()
         return context
 
