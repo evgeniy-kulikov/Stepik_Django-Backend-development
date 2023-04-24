@@ -148,3 +148,10 @@ LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/'
+
+# Отправка почты
+# Значение по умолчанию
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+# Переопределяем константу для отправки сообщений в консоль
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

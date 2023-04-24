@@ -1,6 +1,13 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 from django import forms
-from users.models import User
+from users.models import User, EmailVerification
+
+# для атрибута 'record' функции 'save()' из 'UserRegistrationForm'
+import uuid
+from datetime import timedelta
+from django.utils.timezone import now
+
+# from users.tasks import send_email_verification
 
 
 # Наследуемся от встроенного класса AuthenticationForm
@@ -50,6 +57,15 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
+
+    # Расширяем метод save() где будет реализованна логика подтверждения эл. почты
+    def save(self, commit=True):
+        user = super(UserRegistrationForm, self).save(commit=True)
+        expiration = now() + timedelta(hours=48)  # длительность ожидания 48 часов
+        record = EmailVerification.objects.create(code=uuid.uuid4(), user=user, expiration=expiration)
+        record.send_verification_email()
+        # send_email_verification.delay(user.id)
+        return user
 
 
 class UserProfileForm(UserChangeForm):
