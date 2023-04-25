@@ -1,5 +1,6 @@
 from django.urls import path
-from users.views import UserRegistrationView, UserProfileView, UserLoginView  # login, logout, registration, profile
+from users.views import UserRegistrationView, UserProfileView, UserLoginView, \
+    EmailVerificationView  # login, logout, registration, profile
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LogoutView
@@ -22,4 +23,7 @@ urlpatterns = [
 
     path('logout/', LogoutView.as_view(), name='logout'),
     # path('logout/', logout, name='logout'),
+
+    # Параметры email и uuid нужны для однозначной идентификации пользователя при создании ссылки в для его почты
+    path('verify/<str:email>/<uuid:code>/', EmailVerificationView.as_view(), name='email_verification'),
 ]

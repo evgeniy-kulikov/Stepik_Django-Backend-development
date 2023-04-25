@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from django.conf import settings
 from django.core.mail import send_mail
+from django.urls import reverse
+from django.utils.timezone import now
 
 
 # Эту модель нужно создавать самой первой (первая миграция проекта)
@@ -27,11 +30,35 @@ class EmailVerification(models.Model):
 
     def send_verification_email(self):
         """Письмо на почту зарегистрированному новому пользователю"""
+        # Ссылка пользователю для подтверждения указанной почты
+        link = reverse('users:email_verification', kwargs={'email': self.user.email, 'code': self.code})
+        # полный адрес ссылки (с корневым адресом 'http://127.0.0.1:8000')
+        verification_link = f'{settings.DOMAIN_NAME}{link}'
+        # Заголовок письма пользователю
+        subject = f'Подверждение учетной записи для {self.user.username}'
+        # Сообщение пользователю. Используем format() а не f строку, т.к. не уместится на одной строчке кода
+        message = 'Для подверждения учетной записи для {} перейдите по ссылке: {}'.format(
+            self.user.email,
+            verification_link
+        )
+
+        # Метод отправки письма
         send_mail(
-            "Subject here",
-            "проверка send_verification_email",
-            "from@example.com",
-            [self.user.email],
+            subject=subject,
+            message=message,
+            from_email="from@example.com",
+            recipient_list=[self.user.email],
             fail_silently=False,
         )
+
+        # send_mail(
+        #     "Subject here",
+        #     "проверка send_verification_email",
+        #     "from@example.com",
+        #     [self.user.email],
+        # )
+
+    def is_expired(self):
+        """Проверка срока действия ссылки"""
+        return True if now() >= self.expiration else False
 

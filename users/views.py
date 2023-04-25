@@ -3,11 +3,12 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib import auth, messages
 from django.urls import reverse, reverse_lazy
+from django.views.generic import TemplateView
 
 from django.views.generic.edit import CreateView, UpdateView
 
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
-from users.models import User
+from users.models import User, EmailVerification
 from products.models import Basket
 from django.contrib.auth.views import LoginView
 from common.views import TitleMixin
@@ -107,6 +108,30 @@ class UserProfileView(TitleMixin, LoginRequiredMixin, UpdateView):
         context['baskets'] = Basket.objects.filter(user=self.object)  # равнозначный метод
         # context['baskets'] = Basket.objects.filter(user=self.request.user)  # равнозначный метод
         return context
+
+
+class EmailVerificationView(TitleMixin, TemplateView):
+    title = 'Store - Подтверждение электронной почты'
+    template_name = 'users/email_verification.html'
+
+    # При переходе на страницу срабатывает GET запрос с методами из родительского класса View
+    def get(self, request, *args, **kwargs):
+        code = kwargs['code']
+        user = User.objects.get(email=kwargs['email'])
+        # Применяем метод filter() вместо get(), что бы в случае отсутствия записи получить пустой список (а не ошибку)
+        email_verifications = EmailVerification.objects.filter(user=user, code=code)
+
+        # Применяем метод first() чтобы из списка получить одно значение (можно даже использовать last())
+        # Если запись существует и срок действия не истек
+        if email_verifications.exists() and not email_verifications.first().is_expired():
+            # Меняем булево значение
+            user.is_verified_email = True
+            user.save()
+            # для того, что бы сработал метод GET и отобразился шаблон 'users/email_verification.html'
+            return super(EmailVerificationView, self).get(request, *args, **kwargs)
+        else:
+            return HttpResponseRedirect(reverse('index'))
+
 
 
 
