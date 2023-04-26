@@ -152,8 +152,19 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Отправка почты
+
 # Значение по умолчанию
 # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 # Переопределяем константу для отправки сообщений в консоль
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Подключение Yandex для отправки писем
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'not_show@yandex.ru'
+
+#  Пароль приложения (а не аккаунта почтового ящика)
+#  https://id.yandex.ru/profile/apppasswords-list
+EMAIL_HOST_PASSWORD = 'not_show'
+EMAIL_USE_SSL = True
