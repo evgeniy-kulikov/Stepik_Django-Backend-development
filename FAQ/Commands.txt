@@ -70,5 +70,14 @@ python manage.py migrate <имя приложения>
 python manage.py migrate
 
 
+7.14 Линтеры и форматеры
+flake8
+isort
+pip install flake8 isort
+
+в консоли ввести:
+flake8 .
+isort .
+
 python manage.py shell_plus --print-sql
 ./manage.py shell_plus --print-sql
