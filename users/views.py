@@ -102,12 +102,13 @@ class UserProfileView(TitleMixin, LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
-    def get_context_data(self, **kwargs):
-        context = super(UserProfileView, self).get_context_data()
-        # context['title'] = 'Store - Личный кабинет'  # через миксин "TitleMixin"
-        context['baskets'] = Basket.objects.filter(user=self.object)  # равнозначный метод
-        # context['baskets'] = Basket.objects.filter(user=self.request.user)  # равнозначный метод
-        return context
+    #  После создания контекстного процессора: products.context_processors.baskets этот метод можно удалить
+    # def get_context_data(self, **kwargs):
+    #     context = super(UserProfileView, self).get_context_data()
+    #     # context['title'] = 'Store - Личный кабинет'  # через миксин "TitleMixin"
+    #     context['baskets'] = Basket.objects.filter(user=self.object)  # равнозначный метод
+    #     # context['baskets'] = Basket.objects.filter(user=self.request.user)  # равнозначный метод
+    #     return context
 
 
 class EmailVerificationView(TitleMixin, TemplateView):

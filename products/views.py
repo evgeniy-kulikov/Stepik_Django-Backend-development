@@ -81,7 +81,7 @@ class ProductsListView(TitleMixin, ListView):
 @login_required
 def basket_add(request, product_id):
     product = Product.objects.get(id=product_id)  # Продукт, который будет добавлен в корзину.
-    baskets = Basket.objects.filter(user=request.user, product=product)
+    # baskets = Basket.objects.filter(user=request.user, product=product)
 
     # Получаем все корзины, где есть данный продукт, и берем из них корзину текущего авторизованного пользователя.
     # Возьмутся все корзины текущего авторизованного пользователя, где есть данный продукт.
