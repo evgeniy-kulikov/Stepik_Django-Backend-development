@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$260000$1bTZxKRQJTepXlJQ7y4U9I$3fr6+iXAY+9uRcHFNdw12OLMsymy1SGNQL4HtAyRnt8=",
-        "last_login": "2023-04-04T17:00:36.235Z",
+        "last_login": "2023-04-26T13:37:16.915Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -14,6 +14,7 @@
         "is_active": true,
         "date_joined": "2023-03-31T14:34:45.725Z",
         "image": "",
+        "is_verified_email": false,
         "groups": [],
         "user_permissions": []
     }
@@ -33,6 +34,7 @@
         "is_active": true,
         "date_joined": "2023-04-02T16:57:29.176Z",
         "image": "users_images/ringo-starr.png",
+        "is_verified_email": false,
         "groups": [],
         "user_permissions": []
     }
@@ -42,7 +44,7 @@
     "pk": 3,
     "fields": {
         "password": "pbkdf2_sha256$260000$VpWzRBIpmgCRhpK3Umd0cb$Q7ECaOz/dvHZoksPTZok/K54d4Vz6PRCzOZ7Fz66xaU=",
-        "last_login": "2023-04-03T13:55:47.368Z",
+        "last_login": "2023-04-26T11:27:47.150Z",
         "is_superuser": false,
         "username": "paul",
         "first_name": "Paul",
@@ -52,6 +54,7 @@
         "is_active": true,
         "date_joined": "2023-04-03T13:55:21.706Z",
         "image": "users_images/paul-mccartney.jpg",
+        "is_verified_email": false,
         "groups": [],
         "user_permissions": []
     }
@@ -61,7 +64,7 @@
     "pk": 4,
     "fields": {
         "password": "pbkdf2_sha256$260000$Jdz8Q9B3sQlFiw6qzjYwSI$GOeowWYrIEZYxeKi/150KeA4uKUfxfUQPdTJAIwXcZA=",
-        "last_login": "2023-04-04T16:34:53.307Z",
+        "last_login": "2023-04-26T13:37:57.449Z",
         "is_superuser": false,
         "username": "elton",
         "first_name": "Elton",
@@ -71,6 +74,7 @@
         "is_active": true,
         "date_joined": "2023-04-04T14:02:34.854Z",
         "image": "users_images/elton-john.jpg",
+        "is_verified_email": false,
         "groups": [],
         "user_permissions": []
     }

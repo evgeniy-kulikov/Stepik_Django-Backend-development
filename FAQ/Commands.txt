@@ -81,3 +81,43 @@ isort .
 
 python manage.py shell_plus --print-sql
 ./manage.py shell_plus --print-sql
+
+***************************************************
+Основные команды PostgreSQL
+Запускаем консоль в папке
+cd C:\Program Files\PostgreSQL\14\bin
+
+Введите пароль суперпользователя:
+1234
+
+
+Создание БД (Путь описанный на курсе):
+Запускаем из пакета установки консоль SQL Shell (psql)
+
+
+CREATE DATABASE store_db;
+
+CREATE ROLE store_user with password 'store_password';
+
+ALTER ROLE "store_user" WITH LOGIN;
+
+GRANT ALL PRIVILEGES ON DATABASE "store_db" to store_user;
+
+ALTER USER store_user CREATEDB;
+
+
+Проверить список активных баз:
+\list
+
+Подключение к созданной БД store_db:
+\connect store_db
+короче:
+\c store_db
+
+Посмотреть таблицы:
+\dt
+
+
+Установка драйвера PostgreSQL для Django:
+pip install psycopg2
+
