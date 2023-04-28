@@ -178,5 +178,41 @@
         "image": "products_images/Кроличья_лапка_на_удачу.jpg",
         "category": 5
     }
+},
+{
+    "model": "products.product",
+    "pk": 16,
+    "fields": {
+        "name": "Джемпер TEPLO «Куранты» мужской, цвет чёрный",
+        "description": "В новогоднюю ночь возможны любые чудеса, но для начала нужно в них снова поверить: вспомнить свои самые заветные детские мечты и смелые фантазии, довериться интуиции",
+        "price": "5900.00",
+        "quantity": 15,
+        "image": "products_images/Джемпер_TEPLO.jpg",
+        "category": 1
+    }
+},
+{
+    "model": "products.product",
+    "pk": 17,
+    "fields": {
+        "name": "Рубашка TOM TAILOR  от известнейшего молодежного бренда.",
+        "description": "Интересное вкрапление зеленых треугольников в основной темно-синий оттенок.",
+        "price": "2700.00",
+        "quantity": 7,
+        "image": "products_images/Рубашка_TOM_TAILOR_1032382.jpg",
+        "category": 2
+    }
+},
+{
+    "model": "products.product",
+    "pk": 18,
+    "fields": {
+        "name": "Ботинки TENDANCE MQ3001",
+        "description": "Ботинки женские, цвет тёмно-серый, натуральная кожа, натуральная замша.",
+        "price": "7600.00",
+        "quantity": 9,
+        "image": "products_images/Ботинки_TENDANCE_MQ3001.jpg",
+        "category": 3
+    }
 }
 ]

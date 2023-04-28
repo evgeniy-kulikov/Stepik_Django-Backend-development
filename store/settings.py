@@ -40,10 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'products.apps.ProductsConfig',
-    'users.apps.UsersConfig',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+
     'django_humanize',
     'django_extensions',
+
+    'products.apps.ProductsConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -81,10 +88,22 @@ WSGI_APPLICATION = 'store.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        'NAME': 'store_db',
+        'USER': 'store_user',
+        'PASSWORD': 'store_password',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -158,14 +177,33 @@ LOGOUT_REDIRECT_URL = '/'
 # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 # Переопределяем константу для отправки сообщений в консоль
-# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-# Подключение Yandex для отправки писем
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'not_show@yandex.ru'
+# # Подключение Yandex для отправки писем
+# EMAIL_HOST = 'smtp.yandex.ru'
+# EMAIL_PORT = 465
+# EMAIL_HOST_USER = 'not_show@yandex.ru'
+#
+# #  Пароль приложения (а не аккаунта почтового ящика)
+# #  https://id.yandex.ru/profile/apppasswords-list
+# EMAIL_HOST_PASSWORD = 'not_show'
+# EMAIL_USE_SSL = True
 
-#  Пароль приложения (а не аккаунта почтового ящика)
-#  https://id.yandex.ru/profile/apppasswords-list
-EMAIL_HOST_PASSWORD = 'not_show'
-EMAIL_USE_SSL = True
+
+# OAuth
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
+
+SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+        'SCOPE': [
+            'user',
+        ],
+    }
+}
+

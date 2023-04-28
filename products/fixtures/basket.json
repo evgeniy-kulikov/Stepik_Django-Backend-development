@@ -1,0 +1,62 @@
+[
+{
+    "model": "products.basket",
+    "pk": 16,
+    "fields": {
+        "user": 4,
+        "product": 5,
+        "quantity": 2,
+        "created_timestamp": "2023-04-09T17:24:42.372Z"
+    }
+},
+{
+    "model": "products.basket",
+    "pk": 17,
+    "fields": {
+        "user": 3,
+        "product": 18,
+        "quantity": 3,
+        "created_timestamp": "2023-04-09T17:24:57.225Z"
+    }
+},
+{
+    "model": "products.basket",
+    "pk": 18,
+    "fields": {
+        "user": 2,
+        "product": 9,
+        "quantity": 1,
+        "created_timestamp": "2023-04-09T17:25:10.918Z"
+    }
+},
+{
+    "model": "products.basket",
+    "pk": 19,
+    "fields": {
+        "user": 3,
+        "product": 4,
+        "quantity": 1,
+        "created_timestamp": "2023-04-26T11:28:02.926Z"
+    }
+},
+{
+    "model": "products.basket",
+    "pk": 20,
+    "fields": {
+        "user": 4,
+        "product": 2,
+        "quantity": 1,
+        "created_timestamp": "2023-04-26T11:29:25.726Z"
+    }
+},
+{
+    "model": "products.basket",
+    "pk": 21,
+    "fields": {
+        "user": 4,
+        "product": 9,
+        "quantity": 1,
+        "created_timestamp": "2023-04-26T11:29:29.868Z"
+    }
+}
+]

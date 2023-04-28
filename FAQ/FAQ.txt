@@ -70,6 +70,7 @@ python -Xutf8 manage.py dumpdata --format=json --indent=4 auth.User > products/f
 python -Xutf8 manage.py dumpdata --format=json --indent=4 users.User > products/fixtures/user.json
 python -Xutf8 manage.py dumpdata --format=json --indent=4 products.ProductCategory > products/fixtures/categories.json
 python -Xutf8 manage.py dumpdata --format=json --indent=4 products.Product > products/fixtures/goods.json
+python -Xutf8 manage.py dumpdata --format=json --indent=4 products.Basket > products/fixtures/basket.json
 
 # загрузить данные из файла *.json в  базу данных (существующие данные в базе при этом перезапишутся)
 # Загружать в последовательности предложенного списка !!!
@@ -77,7 +78,33 @@ python -Xutf8 manage.py dumpdata --format=json --indent=4 products.Product > pro
 python manage.py loaddata user.json
 python manage.py loaddata categories.json
 python manage.py loaddata goods.json
+python manage.py loaddata basket.json
 ./manage.py loaddata goods.json
+
+__________________________________________
+Другой вариант для фикстур (проблема utf-8)
+1.
+Установить пакет:
+https://pypi.org/project/django-dump-load-utf8/
+pip install django-dump-load-utf8
+
+2.
+# settings.py
+INSTALLED_APPS = [
+    '...',
+    'django_dump_load_utf8',
+    '...',
+]
+
+3.
+manage.py dumpdatautf8 --output data.json
+# In another database
+manage.py loaddatautf8 data.json
+
+python manage.py dumpdatautf8 products.Product --output goods.json
+python manage.py loaddatautf8 products/fixtures/categories.json
+__________________________________________
+
 # Суперпользователь
 admin
 1234

@@ -81,3 +81,37 @@ isort .
 
 python manage.py shell_plus --print-sql
 ./manage.py shell_plus --print-sql
+
+***************************************************
+Основные команды PostgreSQL
+Запускаем консоль в папке
+C:\Program Files\PostgreSQL\15\bin
+
+Проверка установленной версии СУБД:
+psql –V
+
+Для создания новой базы данных воспользуйтесь утилитой createdb:
+createdb -U postgres store_db
+(где postgres суперпользователь, store_db новая база данных)
+
+Введите пароль суперпользователя:
+root
+1234
+
+Проверить список активных баз:
+Psql -U postgres –l
+
+
+Путь описанный на курсе
+psql
+CREATE DATABASE store_db;
+
+CREATE ROLE store_user with password 'store_password';
+
+ALTER ROLE 'store_user' WITH LOGIN;
+
+GRANT ALL PRIVILEGES ON DATABASE 'store_db' to store_user;
+
+ALTER USER store_user CREATEDB;
+
+
