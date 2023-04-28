@@ -26,15 +26,16 @@ from products.views import IndexView  # index, products
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # path('', index, name='index'),  # FBV
-
     # Контекст можно передать через "extra_context="
     # path('', IndexView.as_view(extra_context={'title': 'Store'}), name='index'),
 
+    # path('', index, name='index'),  # FBV
     path('', IndexView.as_view(), name='index'),  # CBV
 
     path("products/", include("products.urls", namespace='products')),
     path("users/", include("users.urls", namespace='users')),
+    # http://127.0.0.1:8000/accounts/github/login/
+    path('accounts/', include('allauth.urls')),
 ]
 
 # для возможности отображения медиафайлов в режиме DEBUG

@@ -80,6 +80,31 @@ python manage.py loaddata categories.json
 python manage.py loaddata goods.json
 python manage.py loaddata basket.json
 ./manage.py loaddata goods.json
+
+__________________________________________
+Другой вариант для фикстур (проблема utf-8)
+1.
+Установить пакет:
+https://pypi.org/project/django-dump-load-utf8/
+pip install django-dump-load-utf8
+
+2.
+# settings.py
+INSTALLED_APPS = [
+    '...',
+    'django_dump_load_utf8',
+    '...',
+]
+
+3.
+manage.py dumpdatautf8 --output data.json
+# In another database
+manage.py loaddatautf8 data.json
+
+python manage.py dumpdatautf8 products.Product --output goods.json
+python manage.py loaddatautf8 products/fixtures/categories.json
+__________________________________________
+
 # Суперпользователь
 admin
 1234

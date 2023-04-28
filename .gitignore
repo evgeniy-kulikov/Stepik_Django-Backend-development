@@ -2,3 +2,4 @@
 /.idea/.gitignore
 /db.sqlite3
 /.idea/
+/FAQ/pass.txt
