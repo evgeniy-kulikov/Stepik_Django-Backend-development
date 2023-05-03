@@ -12,8 +12,11 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
+# Использование кэша
+# from django.core.cache import cache
 
-# Для передачи контекста, отказались от переопределение метода "get_context_data"
+
+# Для передачи контекста, отказались от переопределения метода "get_context_data"
 # Вместо него задействовали собственный миксин TitleMixin
 class IndexView(TitleMixin, TemplateView):
     template_name = 'products/index.html'
@@ -55,9 +58,28 @@ class ProductsListView(TitleMixin, ListView):
 
     # Формируем необходимый контекст
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(ProductsListView, self).get_context_data()
-        # context['title'] = 'Store - Каталог'  # через миксин "TitleMixin"
+
+        # Без использования кеширования категорий в шаблоне
+        context = super(ProductsListView, self).get_context_data(**kwargs)
+
+        # для работы кеширования категорий в шаблоне
+        # context = super().get_context_data(**kwargs)
+
+        # context['title'] = 'Store - Каталог'  # Получаем через миксин "TitleMixin"
+
+        # # Организуем cache
+        # categories = cache.get('categories')
+        # if not categories:  # Если кеш пуст, то создаем его
+        #     context['categories'] = ProductCategory.objects.all()
+        #     cache.set('categories', context['categories'], 30)
+        # else:  # Иначе получаем контекст их кеша
+        #     context['categories'] = categories
+
         context['categories'] = ProductCategory.objects.all()
+
+        # Контекст для работы кеширования категорий в шаблоне "products.html"
+        context['category_cache'] = self.kwargs.get('category')
+
         return context
 
 

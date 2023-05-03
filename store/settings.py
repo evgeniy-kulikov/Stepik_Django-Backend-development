@@ -48,7 +48,7 @@ INSTALLED_APPS = [
 
     'django_humanize',
     'django_extensions',
-    "debug_toolbar",
+    'debug_toolbar',
 
     'products.apps.ProductsConfig',
     'users.apps.UsersConfig',
@@ -63,7 +63,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'store.urls'
@@ -87,10 +87,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'store.wsgi.application'
 
+# django-redis
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 
 # DATABASES = {
 #     'default': {
@@ -102,7 +112,7 @@ WSGI_APPLICATION = 'store.wsgi.application'
 DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.postgresql',
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'store_db',
         'USER': 'store_user',
         'PASSWORD': 'store_password',
@@ -178,10 +188,10 @@ LOGOUT_REDIRECT_URL = '/'
 # Отправка почты
 
 # Значение по умолчанию
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Переопределяем константу для отправки сообщений в консоль
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # # Подключение Yandex для отправки писем
 # EMAIL_HOST = 'smtp.yandex.ru'
@@ -213,6 +223,6 @@ SOCIALACCOUNT_PROVIDERS = {
 
 # Django Debug Toolbar
 INTERNAL_IPS = [
-    "127.0.0.1",
-    "localhost",
+    '127.0.0.1',
+    'localhost',
 ]

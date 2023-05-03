@@ -1,9 +1,12 @@
 from django.urls import path
-from products.views import basket_add, basket_remove, ProductsListView # products
+from products.views import basket_add, basket_remove, ProductsListView
+
+from django.views.decorators.cache import cache_page
 
 app_name = 'products'
 
 urlpatterns = [
+    # path('', cache_page(30)(ProductsListView.as_view()), name='index'),  # cache_page на 30 сек (вся страница)
     path('', ProductsListView.as_view(), name='index'),  # все продукты
     # path('', products, name='index'),  # все продукты  через FBV
 
