@@ -4,7 +4,11 @@ from django.urls import reverse
 
 # from users.models import User
 from products.models import Product, ProductCategory
-# from pprint import pprint
+
+
+# Запуск всех тестов проекта
+# python manage.py test
+# ./manage.py test .
 
 
 class IndexViewTestCase(TestCase):
@@ -86,3 +90,6 @@ class ProductsListViewTestCase(TestCase):
         self.assertEqual(response.context_data['title'], 'Store - Каталог')
         self.assertTemplateUsed(response, 'products/products.html')
 
+# Запуск всех тестов проекта
+# python manage.py test
+# ./manage.py test .
