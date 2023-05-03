@@ -38,6 +38,9 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
 ]
 
-# для возможности отображения медиафайлов в режиме DEBUG
+# для режима DEBUG
 if settings.DEBUG:
+    # Django Debug Toolbar
+    urlpatterns.append(path('__debug__/', include('debug_toolbar.urls')))
+    # для возможности отображения медиафайлов в режиме DEBUG
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

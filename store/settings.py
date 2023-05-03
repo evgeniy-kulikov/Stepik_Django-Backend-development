@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     'django_humanize',
     'django_extensions',
+    "debug_toolbar",
 
     'products.apps.ProductsConfig',
     'users.apps.UsersConfig',
@@ -61,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'store.urls'
@@ -87,6 +90,7 @@ WSGI_APPLICATION = 'store.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
 
 # DATABASES = {
 #     'default': {
@@ -207,3 +211,8 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+# Django Debug Toolbar
+INTERNAL_IPS = [
+    "127.0.0.1",
+    "localhost",
+]
