@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
 
     'products.apps.ProductsConfig',
+    'orders.apps.OrdersConfig',
     'users.apps.UsersConfig',
 ]
 

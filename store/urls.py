@@ -33,6 +33,7 @@ urlpatterns = [
     path('', IndexView.as_view(), name='index'),  # CBV
 
     path("products/", include("products.urls", namespace='products')),
+    path('orders/', include('orders.urls', namespace='orders')),
     path("users/", include("users.urls", namespace='users')),
     # http://127.0.0.1:8000/accounts/github/login/
     path('accounts/', include('allauth.urls')),
