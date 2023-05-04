@@ -2,12 +2,13 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, User
 from django import forms
 from users.models import User, EmailVerification
 
-# для атрибута 'record' функции 'save()' из 'UserRegistrationForm'
-import uuid
-from datetime import timedelta
-from django.utils.timezone import now
+# Перенесено в users/tasks.py
+# # для атрибута 'record' функции 'save()' из 'UserRegistrationForm'
+# import uuid
+# from datetime import timedelta
+# from django.utils.timezone import now
 
-# from users.tasks import send_email_verification
+from users.tasks import send_email_verification
 
 
 # Наследуемся от встроенного класса AuthenticationForm
@@ -59,12 +60,18 @@ class UserRegistrationForm(UserCreationForm):
         fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
 
     # Расширяем метод save() где будет реализованна логика подтверждения эл. почты
+    # def save(self, commit=True):
+    #     user = super(UserRegistrationForm, self).save(commit=True)
+    #     expiration = now() + timedelta(hours=48)  # длительность ожидания 48 часов
+    #     record = EmailVerification.objects.create(code=uuid.uuid4(), user=user, expiration=expiration)
+    #     record.send_verification_email()
+    #     return user
+
+    # Расширяем метод save() где будет реализованна логика подтверждения эл. почты с использованием Celery
     def save(self, commit=True):
         user = super(UserRegistrationForm, self).save(commit=True)
-        expiration = now() + timedelta(hours=48)  # длительность ожидания 48 часов
-        record = EmailVerification.objects.create(code=uuid.uuid4(), user=user, expiration=expiration)
-        record.send_verification_email()
-        # send_email_verification.delay(user.id)
+        # send_email_verification()  # Так сработает, но параллельно выполняться не будет
+        send_email_verification.delay(user.id)  # Параллельное выполнение задачи
         return user
 
 

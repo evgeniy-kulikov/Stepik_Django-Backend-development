@@ -61,10 +61,12 @@
             <div class="row">
                 <!--            {# {% for item in products %} #}-->
                 <!-- object_list - имя контекста по умолчанию для класса ListView  -->
+
                 <!-- Кэширование фрагмента шаблона (без учета пагинации) -->
                 <!-- {# {% cache 30 object_list %} #} -->
                 <!-- Для работы кеша с учетом пагинации -->
-                {% cache 30 object_list page_obj.number category_cache %}
+                <!-- {# {% cache 20 object_list page_obj.number category_cache %} #}-->
+
                 {% for item in object_list %}
                 <div class="col-lg-4 col-md-6 mb-4">
                     {{ item.category }}
@@ -84,12 +86,14 @@
                         <div class="card-footer text-center">
                             <a class="btn btn-outline-success" href="{% url 'products:basket_add' item.id %}">Отправить
                                 в корзину</a>
-                            <!--                            <button type="button" class="btn btn-outline-success">Отправить в корзину</button>-->
+                            <!-- <button type="button" class="btn btn-outline-success">Отправить в корзину</button>-->
                         </div>
                     </div>
                 </div>
                 {% endfor %}
-                {% endcache %}
+
+<!--                {# {% endcache %} #}-->
+
             </div>
 
             {% include "products/paginator.html" %}

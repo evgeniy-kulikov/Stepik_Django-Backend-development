@@ -115,3 +115,13 @@ GRANT ALL PRIVILEGES ON DATABASE 'store_db' to store_user;
 ALTER USER store_user CREATEDB;
 
 
+Установка пакета Celery для связки с Redis
+pip install "celery[redis]"
+
+
+Запуск службы
+celery -A <имя проекта> worker -l INFO
+celery -A store worker -l INFO
+
+# Так правильно работает в Windows !!!
+celery -A store worker -l INFO -P solo

@@ -191,17 +191,17 @@ LOGOUT_REDIRECT_URL = '/'
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Переопределяем константу для отправки сообщений в консоль
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# # Подключение Yandex для отправки писем
-# EMAIL_HOST = 'smtp.yandex.ru'
-# EMAIL_PORT = 465
-# EMAIL_HOST_USER = 'not_show@yandex.ru'
-#
-# #  Пароль приложения (а не аккаунта почтового ящика)
-# #  https://id.yandex.ru/profile/apppasswords-list
-# EMAIL_HOST_PASSWORD = 'not_show'
-# EMAIL_USE_SSL = True
+# Подключение Yandex для отправки писем
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'not_show@yandex.ru'  # not_show заменить )))
+
+#  Пароль приложения (а не аккаунта почтового ящика)
+#  https://id.yandex.ru/profile/apppasswords-list
+EMAIL_HOST_PASSWORD = 'not_show'  # not_show заменить )))
+EMAIL_USE_SSL = True
 
 
 # OAuth
@@ -226,3 +226,8 @@ INTERNAL_IPS = [
     '127.0.0.1',
     'localhost',
 ]
+
+
+# Celery
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
