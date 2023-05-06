@@ -234,3 +234,9 @@ INTERNAL_IPS = [
 # Celery
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+
+
+# Stripe
+STRIPE_PUBLIC_KEY = 'not_show'
+STRIPE_SECRET_KEY = 'not_show'
+# STRIPE_WEBHOOK_SECRET = ''
