@@ -1,1 +1,20 @@
 pip3 install stripe
+
+**********************************
+stripe
+
+Программа:
+D:\_Soft\_Phyton\stripe
+
+Запускаем  ConEmu
+в терминале ConEmu вводим:
+d:
+cd D:\_Soft\_Phyton\stripe
+setx /M path "%path%;D:\_Soft\_Phyton\stripe
+stripe
+stripe login
+
+Перезапускаем  PyCharm
+
+для теста webhook в терминале PyCharm
+stripe listen --forward-to 127.0.0.1:8000/webhook/stripe/

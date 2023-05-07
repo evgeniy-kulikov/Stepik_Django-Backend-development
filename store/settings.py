@@ -237,6 +237,7 @@ CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
 
 
 # Stripe
+# https://dashboard.stripe.com/test/apikeys
 STRIPE_PUBLIC_KEY = 'not_show'
 STRIPE_SECRET_KEY = 'not_show'
-# STRIPE_WEBHOOK_SECRET = ''
+STRIPE_WEBHOOK_SECRET = 'not_show'

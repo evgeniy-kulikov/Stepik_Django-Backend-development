@@ -1,6 +1,6 @@
 from django.urls import path
 
-from orders.views import OrderCreateView, CanceledTemplateView, SuccessTemplateView
+from orders.views import OrderCreateView, CanceledTemplateView, SuccessTemplateView, stripe_webhook_view
 
 app_name = 'orders'
 
@@ -10,4 +10,5 @@ urlpatterns = [
     # path('order/<int:pk>/', OrderDetailView.as_view(), name='order'),
     path('order-success/', SuccessTemplateView.as_view(), name='order_success'),  # http://127.0.0.1:8000/orders/order-success/
     path('order-canceled/', CanceledTemplateView.as_view(), name='order_canceled'),
+    path('webhook/stripe/', stripe_webhook_view, name='stripe_webhook'),
 ]
